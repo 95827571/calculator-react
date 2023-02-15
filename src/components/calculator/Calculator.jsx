@@ -13,6 +13,7 @@ export default function Calculator() {
     const [calcDisplay, setCalcDisplay] = useState("");
     const lastOperationWasCalculation = useRef(false);
 
+    // If the last operation was a calculation, then we should clear
     const clearAfterAnswer = () => {
         if(lastOperationWasCalculation.current) {
             clearDisplay();
@@ -28,13 +29,26 @@ export default function Calculator() {
 
     const binaryToDenary = () => {
         clearAfterAnswer();
+
         lastOperationWasCalculation.current = true;
         if(calcDisplay.length == 0) {
             setCalcDisplay("ERROR")
         }
 
-        const binary = parseInt(calcDisplay, 2)
-        setCalcDisplay(binary.toString())
+        const denary = parseInt(calcDisplay, 2)
+        setCalcDisplay(denary.toString())
+    }
+
+    const denaryToBinary = () => {
+        clearAfterAnswer();
+
+        lastOperationWasCalculation.current = true;
+        if(calcDisplay.length == 0) {
+            setCalcDisplay("ERROR")
+        }
+
+        const binary = parseInt(calcDisplay, 10).toString(2)
+        setCalcDisplay(binary);
     }
 
     const clearDisplay = () => {
@@ -43,6 +57,7 @@ export default function Calculator() {
 
     const calculate = () => {
         clearAfterAnswer();
+
         lastOperationWasCalculation.current = true;
         let value = eval(calcDisplay);
 
@@ -65,6 +80,9 @@ export default function Calculator() {
                 break;
             case "=":
                 calcButtonsArray.push(createCalcButton(value, calculate));
+                break;
+            case ">>>":
+                calcButtonsArray.push(createCalcButton(value, denaryToBinary));
                 break;
             case "!!":
                 calcButtonsArray.push(createCalcButton(value, binaryToDenary));
