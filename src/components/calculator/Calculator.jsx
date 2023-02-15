@@ -69,7 +69,7 @@ export default function Calculator() {
         new CalcButton("4", "4"), new CalcButton("5", "5"), new CalcButton("6", "6"), new CalcButton("-", "-"),
         new CalcButton("7", "7"), new CalcButton("8", "8"), new CalcButton("9", "9"), new CalcButton("x", "*"),
         new CalcButton("C", "C"), new CalcButton("0", "0"), new CalcButton("=", "="), new CalcButton("/", "/"),
-        new CalcButton("^", "^"), new CalcButton("%", "%"), new CalcButton("D>B", ">>>"), new CalcButton("B>D", "!!"),
+        new CalcButton("^", "**"), new CalcButton("%", "%"), new CalcButton("D>B", ">>>"), new CalcButton("B>D", "!!"),
     ]
     const calcButtonsArray =  [];
 
