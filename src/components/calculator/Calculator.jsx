@@ -11,23 +11,39 @@ class CalcButton {
 
 export default function Calculator() {
     const [calcDisplay, setCalcDisplay] = useState("");
-    const lastOperationWasCalculate = useRef(false);
+    const lastOperationWasCalculation = useRef(false);
 
-    const updateDisplay = (char) => {
-        if(lastOperationWasCalculate.current) {
-            setCalcDisplay("")
-            lastOperationWasCalculate.current = false;
+    const clearAfterAnswer = () => {
+        if(lastOperationWasCalculation.current) {
+            clearDisplay();
+            lastOperationWasCalculation.current = false;
         }
-
-        setCalcDisplay(setCalcDisplay => setCalcDisplay + char + " ");
     }
 
-    const clearDisplay = (char) => {
+
+    const updateDisplay = (char) => {
+        clearAfterAnswer();
+        setCalcDisplay(setCalcDisplay => setCalcDisplay + char);
+    }
+
+    const binaryToDenary = () => {
+        clearAfterAnswer();
+        lastOperationWasCalculation.current = true;
+        if(calcDisplay.length == 0) {
+            setCalcDisplay("ERROR")
+        }
+
+        const binary = parseInt(calcDisplay, 2)
+        setCalcDisplay(binary.toString())
+    }
+
+    const clearDisplay = () => {
         setCalcDisplay("");
     }
 
-    const calculate = (char) => {
-        lastOperationWasCalculate.current = true;
+    const calculate = () => {
+        clearAfterAnswer();
+        lastOperationWasCalculation.current = true;
         let value = eval(calcDisplay);
 
         setCalcDisplay(value);
@@ -49,6 +65,9 @@ export default function Calculator() {
                 break;
             case "=":
                 calcButtonsArray.push(createCalcButton(value, calculate));
+                break;
+            case "!!":
+                calcButtonsArray.push(createCalcButton(value, binaryToDenary));
                 break;
             default:
                 calcButtonsArray.push(createCalcButton(value, updateDisplay));
