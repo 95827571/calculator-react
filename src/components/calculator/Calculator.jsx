@@ -72,18 +72,18 @@ export default function Calculator() {
         new CalcButton("^", "**"), new CalcButton("%", "%"), new CalcButton("D>B", ">>>"), new CalcButton("B>D", "!!"),
         new CalcButton("(", "("), new CalcButton(")", ")"),
     ]
-    const calcButtonsArray = calcButtons.map((value) => {
+    const createdCalcButtons = calcButtons.map((value, index) => {
         switch (value.operation) {
             case "C":
-                return createCalcButton(value, clearDisplay);
+                return createCalcButton(value, clearDisplay, index);
             case "=":
-                return createCalcButton(value, calculate);
+                return createCalcButton(value, calculate, index);
             case ">>>":
-                return createCalcButton(value, denaryToBinary);
+                return createCalcButton(value, denaryToBinary, index);
             case "!!":
-                return createCalcButton(value, binaryToDenary);
+                return createCalcButton(value, binaryToDenary, index);
             default:
-                return createCalcButton(value, updateDisplay);
+                return createCalcButton(value, updateDisplay, index);
         }
     })
 
@@ -93,14 +93,14 @@ export default function Calculator() {
                 <h1>{calcDisplay}</h1>
             </div>
             <div id="calc-buttons">
-                {calcButtonsArray}
+                {createdCalcButtons}
             </div>
         </div>
     );
 }
 
-const createCalcButton = (display, func) => {
+const createCalcButton = (display, func, index) => {
     return (
-        <div onClick={() => {func(display.operation)}} className="calc-btn"><p>{display.btnDisplay}</p></div>
+        <div key={index} onClick={() => {func(display.operation)}} className="calc-btn"><p>{display.btnDisplay}</p></div>
     )
 }
