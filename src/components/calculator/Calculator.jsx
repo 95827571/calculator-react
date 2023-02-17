@@ -70,29 +70,21 @@ export default function Calculator() {
         new CalcButton("7", "7"), new CalcButton("8", "8"), new CalcButton("9", "9"), new CalcButton("x", "*"),
         new CalcButton("C", "C"), new CalcButton("0", "0"), new CalcButton("=", "="), new CalcButton("/", "/"),
         new CalcButton("^", "**"), new CalcButton("%", "%"), new CalcButton("D>B", ">>>"), new CalcButton("B>D", "!!"),
+        new CalcButton("(", "("), new CalcButton(")", ")"),
     ]
-    const calcButtonsArray =  [];
-
-    calcButtons.map((value) => {
+    const calcButtonsArray = calcButtons.map((value) => {
         switch (value.operation) {
             case "C":
-                calcButtonsArray.push(createCalcButton(value, clearDisplay));
-                break;
+                return createCalcButton(value, clearDisplay);
             case "=":
-                calcButtonsArray.push(createCalcButton(value, calculate));
-                break;
+                return createCalcButton(value, calculate);
             case ">>>":
-                calcButtonsArray.push(createCalcButton(value, denaryToBinary));
-                break;
+                return createCalcButton(value, denaryToBinary);
             case "!!":
-                calcButtonsArray.push(createCalcButton(value, binaryToDenary));
-                break;
+                return createCalcButton(value, binaryToDenary);
             default:
-                calcButtonsArray.push(createCalcButton(value, updateDisplay));
-                break;
+                return createCalcButton(value, updateDisplay);
         }
-
-
     })
 
     return (
